@@ -49,9 +49,9 @@ namespace LitMath
         public override string ToString()
         {
             string pattern = @"Matrix3(
-{0}, {1}, {2},
-{3}, {4}, {5},
-{6}, {7}, {8})";
+{0,10:0.00}, {1,10:0.00}, {2,10:0.00},
+{3,10:0.00}, {4,10:0.00}, {5,10:0.00},
+{6,10:0.00}, {7,10:0.00}, {8,10:0.00}  )";
             return string.Format(pattern,
                 m11, m12, m13,
                 m21, m22, m23,
