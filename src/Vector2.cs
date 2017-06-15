@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Canvas.LiteMath
+namespace LitMath
 {
     public struct Vector2
     {

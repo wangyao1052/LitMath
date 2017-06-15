@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Canvas.LiteMath
+namespace LitMath
 {
     public class ViewUtils
     {
