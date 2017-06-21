@@ -24,6 +24,24 @@ namespace LitMath
             return string.Format("Vector2({0}, {1})", this.x, this.y);
         }
 
+        public override bool Equals(object obj)
+        {
+            if (!(obj is Vector2))
+                return false;
+
+            return Equals((Vector2)obj);
+        }
+
+        public bool Equals(Vector2 rhs)
+        {
+            return (Utils.IsEqual(x, rhs.x) && Utils.IsEqual(y, rhs.y));
+        }
+
+        public override int GetHashCode()
+        {
+            return x.GetHashCode() ^ y.GetHashCode();
+        }
+
         public double length
         {
             get
@@ -141,7 +159,7 @@ namespace LitMath
 
         public static bool operator ==(Vector2 lhs, Vector2 rhs)
         {
-            return (Utils.IsEqual(lhs.x, rhs.x) && Utils.IsEqual(lhs.y, rhs.y));
+            return lhs.Equals(rhs);
         }
 
         public static bool operator !=(Vector2 lhs, Vector2 rhs)

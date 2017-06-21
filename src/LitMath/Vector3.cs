@@ -27,6 +27,26 @@ namespace LitMath
             return string.Format("Vector3({0}, {1}, {2})", this.x, this.y, this.z);
         }
 
+        public override bool Equals(object obj)
+        {
+            if (!(obj is Vector3))
+                return false;
+
+            return Equals((Vector3)obj);
+        }
+
+        public bool Equals(Vector3 rhs)
+        {
+            return Utils.IsEqual(x, rhs.x)
+                && Utils.IsEqual(y, rhs.y)
+                && Utils.IsEqual(z, rhs.z);
+        }
+
+        public override int GetHashCode()
+        {
+            return x.GetHashCode() ^ y.GetHashCode() ^ z.GetHashCode();
+        }
+
         public double length
         {
             get
@@ -133,9 +153,7 @@ namespace LitMath
 
         public static bool operator ==(Vector3 lhs, Vector3 rhs)
         {
-            return Utils.IsEqual(lhs.x, rhs.x) 
-                && Utils.IsEqual(lhs.y, rhs.y)
-                && Utils.IsEqual(lhs.z, rhs.z);
+            return lhs.Equals(rhs);
         }
 
         public static bool operator !=(Vector3 lhs, Vector3 rhs)
