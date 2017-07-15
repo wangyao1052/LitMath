@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace LitMath
 {
-    public class Line2
+    public struct Line2
     {
         public Vector2 startPoint;
         public Vector2 endPoint;

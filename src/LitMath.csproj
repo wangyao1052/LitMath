@@ -36,9 +36,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LitMath\Circle2.cs" />
     <Compile Include="LitMath\Line2.cs" />
     <Compile Include="LitMath\Matrix3.cs" />
     <Compile Include="LitMath\Matrix4.cs" />
+    <Compile Include="LitMath\Rectangle2.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="LitMath\Quaternion.cs" />
     <Compile Include="LitMath\Utils.cs" />
