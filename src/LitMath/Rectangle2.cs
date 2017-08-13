@@ -52,6 +52,15 @@ namespace LitMath
             this.height = height;
         }
 
+        public Rectangle2(Vector2 point1, Vector2 point2)
+        {
+            double minX = point1.x < point2.x ? point1.x : point2.x;
+            double minY = point1.y < point2.y ? point1.y : point2.y;
+            this.location = new Vector2(minX, minY);
+            this.width = Math.Abs(point2.x - point1.x);
+            this.height = Math.Abs(point2.y - point1.y);
+        }
+
         public override string ToString()
         {
             return string.Format("Rectangle2(({0}, {1}), {2}, {3})",

@@ -81,20 +81,6 @@ namespace LitMath
             }
         }
 
-        public void Rotate(double angle)
-        {
-            double rad = Utils.DegreeToRadian(angle);
-            this.RotateInRadian(rad);
-        }
-
-        public void RotateInRadian(double rad)
-        {
-            double xx = (this.x * Math.Cos(rad)) - (this.y * Math.Sin(rad));
-            double yy = (this.x * Math.Sin(rad)) + (this.y * Math.Cos(rad));
-            this.x = xx;
-            this.y = yy;
-        }
-
         public static double Dot(Vector2 a, Vector2 b)
         {
             return a.x * b.x + a.y * b.y;
@@ -125,6 +111,33 @@ namespace LitMath
         {
             Vector2 vector = b - a;
             return vector.length;
+        }
+
+        public static Vector2 Rotate(Vector2 v, double angle)
+        {
+            return RotateInRadian(v, Utils.DegreeToRadian(angle));
+        }
+
+        public static Vector2 Rotate(Vector2 point, Vector2 basePoint, double angle)
+        {
+            return RotateInRadian(point, basePoint, Utils.DegreeToRadian(angle));
+        }
+
+        public static Vector2 RotateInRadian(Vector2 v, double rad)
+        {
+            double x = v.x * Math.Cos(rad) - v.y * Math.Sin(rad);
+            double y = v.x * Math.Sin(rad) + v.y * Math.Cos(rad);
+            return new Vector2(x, y);
+        }
+
+        public static Vector2 RotateInRadian(Vector2 point, Vector2 basePoint, double rad)
+        {
+            double cos = Math.Cos(rad);
+            double sin = Math.Sin(rad);
+            double x = point.x * cos - point.y * sin + basePoint.x * (1 - cos) + basePoint.y * sin;
+            double y = point.x * sin + point.y * cos + basePoint.y * (1 - cos) + basePoint.x * sin;
+
+            return new Vector2(x, y);
         }
 
         public static Vector2 operator +(Vector2 a, Vector2 b)
