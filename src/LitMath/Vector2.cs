@@ -107,6 +107,29 @@ namespace LitMath
             return Math.Acos(Utils.Clamp(num2, -1.0, 1.0));
         }
 
+        /// <summary>
+        /// Returns the signed angle in degrees between from and to.
+        /// The result value range: [-180, 180]
+        /// </summary>
+        public static double SignedAngle(Vector2 from, Vector2 to)
+        {
+            return Utils.RadianToDegree(SignedAngleInRadian(from, to));
+        }
+
+        /// <summary>
+        /// Returns the signed angle in radians between from and to.
+        /// The result value range: [-PI, PI]
+        /// </summary>
+        public static double SignedAngleInRadian(Vector2 from, Vector2 to)
+        {
+            double rad = AngleInRadian(from, to);
+            if (Cross(from, to) < 0)
+            {
+                rad = -rad;
+            }
+            return rad;
+        }
+
         public static double Distance(Vector2 a, Vector2 b)
         {
             Vector2 vector = b - a;
