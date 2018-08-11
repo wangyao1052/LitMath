@@ -91,11 +91,21 @@ namespace LitMath
             return ((a.x * b.y) - (a.y * b.x));
         }
 
+        /// <summary>
+        /// Returns the unsigned angle in degrees between a and b.
+        /// The smaller of the two possible angles between the two vectors is used.
+        /// The result value range: [0, 180]
+        /// </summary>
         public static double Angle(Vector2 a, Vector2 b)
         {
             return Utils.RadianToDegree(AngleInRadian(a, b));
         }
 
+        /// <summary>
+        /// Returns the unsigned angle in radians between a and b.
+        /// The smaller of the two possible angles between the two vectors is used.
+        /// The result value range: [0, PI]
+        /// </summary>
         public static double AngleInRadian(Vector2 a, Vector2 b)
         {
             double num = a.length * b.length;
@@ -108,7 +118,7 @@ namespace LitMath
         }
 
         /// <summary>
-        /// Returns the signed angle in degrees between from and to.
+        /// Returns the signed acute clockwise angle in degrees between from and to.
         /// The result value range: [-180, 180]
         /// </summary>
         public static double SignedAngle(Vector2 from, Vector2 to)
@@ -117,7 +127,7 @@ namespace LitMath
         }
 
         /// <summary>
-        /// Returns the signed angle in radians between from and to.
+        /// Returns the signed acute clockwise angle in radians between from and to.
         /// The result value range: [-PI, PI]
         /// </summary>
         public static double SignedAngleInRadian(Vector2 from, Vector2 to)

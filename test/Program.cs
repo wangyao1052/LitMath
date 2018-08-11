@@ -8,6 +8,35 @@ namespace Test
     {
         static void Main(string[] args)
         {
+            //LitMath.Vector2 v = new LitMath.Vector2(0.7, 0.7);
+            //v = LitMath.Vector2.RotateInRadian(v, LitMath.Utils.PI / 2);
+            //Console.WriteLine(v.ToString());
+            //Console.WriteLine(Math.Asin(0.5).ToString());
+
+            {
+                LitMath.Vector3 va = new LitMath.Vector3(0, 0, 1);
+                LitMath.Vector3 vb = new LitMath.Vector3(0, 1, 0);
+                LitMath.Vector3 axis = new LitMath.Vector3(1, 1, 0);
+                double angle = LitMath.Vector3.SignedAngle(va, vb, axis);
+                Console.WriteLine(angle);
+            }
+            {
+                LitMath.Vector3 va = new LitMath.Vector3(0, 0, 1);
+                LitMath.Vector3 vb = new LitMath.Vector3(0, 0, 1);
+                LitMath.Vector3 axis = new LitMath.Vector3(1, 1, 0);
+                double angle = LitMath.Vector3.SignedAngle(va, vb, axis);
+                Console.WriteLine(angle);
+            }
+            {
+                LitMath.Vector3 va = new LitMath.Vector3(0, 0, 1);
+                LitMath.Vector3 vb = new LitMath.Vector3(0, 1, 0);
+                LitMath.Vector3 axis = new LitMath.Vector3(0, 1, 1);
+                double angle = LitMath.Vector3.SignedAngle(va, vb, axis);
+                Console.WriteLine(angle);
+            }
+            
+
+            return;
             //LitMath.Vector2 v1 = new LitMath.Vector2(1, 3);
             //Console.WriteLine(v1.ToString());
 

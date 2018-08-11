@@ -100,11 +100,21 @@ namespace LitMath
                 (a.x * b.y) - (a.y * b.x));
         }
 
+        /// <summary>
+        /// Returns the unsigned angle in degrees between a and b.
+        /// The smaller of the two possible angles between the two vectors is used.
+        /// The result value range: [0, 180]
+        /// </summary>
         public static double Angle(Vector3 a, Vector3 b)
         {
             return Utils.RadianToDegree(AngleInRadian(a, b));
         }
 
+        /// <summary>
+        /// Returns the unsigned angle in radians between a and b.
+        /// The smaller of the two possible angles between the two vectors is used.
+        /// The result value range: [0, PI]
+        /// </summary>
         public static double AngleInRadian(Vector3 a, Vector3 b)
         {
             double num = a.length * b.length;
@@ -114,6 +124,37 @@ namespace LitMath
             }
             double num2 = Dot(a, b) / num;
             return Math.Acos(Utils.Clamp(num2, -1.0, 1.0));
+        }
+
+        /// <summary>
+        /// Returns the signed acute clockwise angle in degrees between from and to.
+        /// The result value range: [-180, 180]
+        /// <param name="from">The vector from which the angular difference is measured.</param>
+        /// <param name="to">The vector to which the angular difference is measured.</param>
+        /// <param name="axis">A vector around which the other vectors are rotated.</param>
+        /// </summary>
+        public static double SignedAngle(Vector3 from, Vector3 to, Vector3 axis)
+        {
+            return Utils.RadianToDegree(SignedAngleInRadian(from, to, axis));
+        }
+
+        /// <summary>
+        /// Returns the signed acute clockwise angle in radians between from and to.
+        /// The result value range: [-PI, PI]
+        /// <param name="from">The vector from which the angular difference is measured.</param>
+        /// <param name="to">The vector to which the angular difference is measured.</param>
+        /// <param name="axis">A vector around which the other vectors are rotated.</param>
+        /// </summary>
+        public static double SignedAngleInRadian(Vector3 from, Vector3 to, Vector3 axis)
+        {
+            double rad = AngleInRadian(from, to);
+            Vector3 n = Cross(from, to);
+            if (Dot(n, axis) < 0)
+            {
+                rad = -rad;
+            }
+
+            return rad;
         }
 
         public static double Distance(Vector3 a, Vector3 b)
