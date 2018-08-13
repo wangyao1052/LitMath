@@ -61,18 +61,20 @@ namespace LitMath
         ///     true  --- 相交
         ///     false --- 不相交
         /// </returns>
-        public static bool Intersect(Line2 line1st, Line2 line2nd, ref Vector2 intersection)
+        public static bool Intersect(Line2 line1st, Line2 line2nd, ref Vector2 intersection,
+            double tolerance = 1e-10)
         {
             Vector2 p = line1st.startPoint;
             Vector2 r = line1st.endPoint - line1st.startPoint;
             Vector2 q = line2nd.startPoint;
             Vector2 s = line2nd.endPoint - line2nd.startPoint;
             double rxs = Vector2.Cross(r, s);
-            if (!Utils.IsEqualZero(rxs))
+            if (!Utils.IsEqualZero(rxs, tolerance))
             {
                 double t = Vector2.Cross(q - p, s) / rxs;
                 double u = Vector2.Cross(q - p, r) / rxs;
-                if (t >= 0.0 && t <= 1.0 && u >= 0.0 && u <= 1.0)
+                if (t >= (0.0-tolerance) && t <= (1.0+tolerance)
+                    && u >= (0.0-tolerance) && u <= (1.0+tolerance))
                 {
                     intersection = p + t * r;
                     return true;

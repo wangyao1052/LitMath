@@ -7,7 +7,7 @@ namespace LitMath
     public class Utils
     {
         public const double EPSILON = 1E-05;
-        public const double PI = 3.1415926;
+        public const double PI = 3.14159265358979323846;
 
         public static double Clamp(double value, double minv, double maxv)
         {
@@ -19,14 +19,14 @@ namespace LitMath
             return ((angle * PI) / 180.0);
         }
 
-        public static bool IsEqual(double x, double y)
+        public static bool IsEqual(double x, double y, double epsilon = EPSILON)
         {
-            return IsEqualZero(x - y);
+            return IsEqualZero(x - y, epsilon);
         }
 
-        public static bool IsEqualZero(double x)
+        public static bool IsEqualZero(double x, double epsilon = EPSILON)
         {
-            return (Math.Abs(x) < EPSILON);
+            return (Math.Abs(x) < epsilon);
         }
 
         public static double RadianToDegree(double angle)
