@@ -322,6 +322,23 @@ namespace LitMath
             return m1.inverse * m2.inverse * m3 * m2 * m1;
         }
 
+        /// <summary>
+        /// 对点的镜像矩阵
+        /// </summary>
+        public static Matrix4 Mirroring(Vector3 pnt)
+        {
+            //
+            Matrix4 m1 = Matrix4.Translate(-pnt);
+            //
+            Matrix4 m2 = new Matrix4(
+                -1,  0,  0, 0,
+                 0, -1,  0, 0,
+                 0,  0, -1, 0,
+                 0,  0,  0, 1);
+
+            return m1.inverse * m2 * m1;
+        }
+
         public static Matrix4 operator *(Matrix4 a, Matrix4 b)
         {
             Matrix4 M = new Matrix4();
