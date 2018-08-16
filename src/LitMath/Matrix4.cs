@@ -22,10 +22,10 @@ namespace LitMath
         public double m44;
 
         public Matrix4(
-            double m11 = 0.0, double m12 = 0.0, double m13 = 0.0, double m14 = 0.0,
-            double m21 = 0.0, double m22 = 0.0, double m23 = 0.0, double m24 = 0.0,
-            double m31 = 0.0, double m32 = 0.0, double m33 = 0.0, double m34 = 0.0,
-            double m41 = 0.0, double m42 = 0.0, double m43 = 0.0, double m44 = 0.0)
+            double m11 = 1.0, double m12 = 0.0, double m13 = 0.0, double m14 = 0.0,
+            double m21 = 0.0, double m22 = 1.0, double m23 = 0.0, double m24 = 0.0,
+            double m31 = 0.0, double m32 = 0.0, double m33 = 1.0, double m34 = 0.0,
+            double m41 = 0.0, double m42 = 0.0, double m43 = 0.0, double m44 = 1.0)
         {
             this.m11 = m11;
             this.m12 = m12;
@@ -49,10 +49,10 @@ namespace LitMath
         }
 
         public void Set(
-            double m11 = 0.0, double m12 = 0.0, double m13 = 0.0, double m14 = 0.0,
-            double m21 = 0.0, double m22 = 0.0, double m23 = 0.0, double m24 = 0.0,
-            double m31 = 0.0, double m32 = 0.0, double m33 = 0.0, double m34 = 0.0,
-            double m41 = 0.0, double m42 = 0.0, double m43 = 0.0, double m44 = 0.0)
+            double m11 = 1.0, double m12 = 0.0, double m13 = 0.0, double m14 = 0.0,
+            double m21 = 0.0, double m22 = 1.0, double m23 = 0.0, double m24 = 0.0,
+            double m31 = 0.0, double m32 = 0.0, double m33 = 1.0, double m34 = 0.0,
+            double m41 = 0.0, double m42 = 0.0, double m43 = 0.0, double m44 = 1.0)
         {
             this.m11 = m11;
             this.m12 = m12;
@@ -287,7 +287,7 @@ namespace LitMath
             double cos = Math.Cos(angle);
             double l_cos = 1.0 - cos;
             
-            Matrix4 M = new Matrix4();
+            Matrix4 M = Matrix4.identity;
             M.m11 = x * x * l_cos + cos;
             M.m12 = x * y * l_cos - z * sin;
             M.m13 = x * z * l_cos + y * sin;
@@ -298,6 +298,28 @@ namespace LitMath
             M.m32 = y * z * l_cos + x * sin;
             M.m33 = z * z * l_cos + cos;
             return M;
+        }
+
+        /// <summary>
+        /// 对直线的镜像矩阵
+        /// </summary>
+        public static Matrix4 Mirroring(Vector3 mirrorLinePnt1, Vector3 mirrorLinePnt2)
+        {
+            //
+            Matrix4 m1 = Matrix4.Translate(-mirrorLinePnt1);
+            //
+            Vector3 v = mirrorLinePnt2 - mirrorLinePnt1;
+            Vector3 axis = Vector3.Cross(v, new Vector3(0, 0, 1));
+            double angle = Vector3.SignedAngleInRadian(v, new Vector3(0, 0, 1), axis);
+            Matrix4 m2 = AngleAxisInRadian(angle, axis);
+            //
+            Matrix4 m3 = new Matrix4(
+                -1,  0, 0, 0,
+                 0, -1, 0, 0,
+                 0,  0, 1, 0,
+                 0,  0, 0, 1);
+
+            return m1.inverse * m2.inverse * m3 * m2 * m1;
         }
 
         public static Matrix4 operator *(Matrix4 a, Matrix4 b)
