@@ -335,8 +335,33 @@ namespace LitMath
                  0, -1,  0, 0,
                  0,  0, -1, 0,
                  0,  0,  0, 1);
+            //
+            Matrix4 m3 = Matrix4.Translate(pnt);
 
-            return m1.inverse * m2 * m1;
+            return m3 * m2 * m1;
+        }
+
+        /// <summary>
+        /// 对面的镜像矩阵
+        /// </summary>
+        public static Matrix4 MirroringPlane(Vector3 pointOnPlane, Vector3 normal)
+        {
+            //
+            Matrix4 m1 = Matrix4.Translate(-pointOnPlane);
+            //
+            Vector3 axis = Vector3.Cross(normal, new Vector3(0, 0, 1));
+            double angle = Vector3.SignedAngleInRadian(normal, new Vector3(0, 0, 1), axis);
+            Matrix4 m2 = AngleAxisInRadian(angle, axis);
+            //
+            Matrix4 m3 = new Matrix4(
+                1, 0,  0, 0,
+                0, 1,  0, 0,
+                0, 0, -1, 0,
+                0, 0,  0, 1);
+            //
+            Matrix4 m1_inverse = Matrix4.Translate(pointOnPlane);
+
+            return m1_inverse * m2.inverse * m3 * m2 * m1;
         }
 
         public static Matrix4 operator *(Matrix4 a, Matrix4 b)
