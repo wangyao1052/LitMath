@@ -28,7 +28,7 @@ namespace LitMath
         /// 只适用于凸多边形
         /// https://en.wikipedia.org/wiki/Winding_number
         /// </summary>
-        public PointContainment IsContainsPoint(Vector2 pnt)
+        public PointContainment IsContainsPoint(Vector2 pnt, double tol = 1e-5)
         {
             int count = _pnts.Count;
             double angle = 0.0;
@@ -41,11 +41,11 @@ namespace LitMath
                 angle = -angle;
             }
 
-            if (Utils.IsEqualZero(angle, 1e-5))
+            if (Utils.IsEqualZero(angle, tol))
             {
                 return PointContainment.Outside;
             }
-            else if (Utils.IsEqualZero(angle - Utils.PI*2, 1e-5))
+            else if (Utils.IsEqualZero(angle - Utils.PI*2, tol))
             {
                 return PointContainment.Inside;
             }
