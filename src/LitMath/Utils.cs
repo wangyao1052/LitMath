@@ -6,7 +6,7 @@ namespace LitMath
 {
     public class Utils
     {
-        public const double EPSILON = 1E-05;
+        public const double EPSILON = 1E-10;
         public const double PI = 3.14159265358979323846;
 
         public static double Clamp(double value, double minv, double maxv)

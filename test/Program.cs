@@ -12,17 +12,27 @@ namespace Test
             //v = LitMath.Vector2.RotateInRadian(v, LitMath.Utils.PI / 2);
             //Console.WriteLine(v.ToString());
             //Console.WriteLine(Math.Asin(0.5).ToString());
-
             {
                 List<LitMath.Vector2> pnts = new List<LitMath.Vector2>();
+                //pnts.Add(new LitMath.Vector2(0, 0));
+                //pnts.Add(new LitMath.Vector2(10, 0));
+                //pnts.Add(new LitMath.Vector2(10, 10));
+                //pnts.Add(new LitMath.Vector2(5, 10));
+                //pnts.Add(new LitMath.Vector2(5, 20));
+                //pnts.Add(new LitMath.Vector2(0, 20));
+                //pnts.Add(new LitMath.Vector2(0, 10));
+                //pnts.Add(new LitMath.Vector2(-10, 10));
+
                 pnts.Add(new LitMath.Vector2(0, 0));
+                pnts.Add(new LitMath.Vector2(5, 5));
                 pnts.Add(new LitMath.Vector2(0, 10));
-                pnts.Add(new LitMath.Vector2(10, 10));
-                pnts.Add(new LitMath.Vector2(10, 0));
+                pnts.Add(new LitMath.Vector2(-5, 5));
+                
+                
                 
                 
                 LitMath.Polygon2 polygon = new LitMath.Polygon2(pnts);
-                LitMath.PointContainment pc = polygon.IsContainsPoint(new LitMath.Vector2(5, 5));
+                LitMath.PointContainment pc = polygon.IsContainsPointEx(new LitMath.Vector2(5, 6));
                 switch (pc)
                 {
                     case LitMath.PointContainment.Inside:

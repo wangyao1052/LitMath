@@ -25,8 +25,8 @@ namespace LitMath
         /// <summary>
         /// 判断点是否在多边形内
         /// 使用Winding Number(卷绕数)来判断
+        /// 只适用于凸多边形
         /// https://en.wikipedia.org/wiki/Winding_number
-        /// 适用于凸多边形
         /// </summary>
         public PointContainment IsContainsPoint(Vector2 pnt)
         {
@@ -97,6 +97,52 @@ namespace LitMath
 
             //return (crossing % 2 != 0);
             #endregion
+        }
+
+        /// <summary>
+        /// 判断点是否在多边形内
+        /// 适用于任意多边形
+        /// http://alienryderflex.com/polygon/
+        /// </summary>
+        public PointContainment IsContainsPointEx(Vector2 pnt)
+        {
+            int count = _pnts.Count;
+            bool oddNodes = false;
+
+            // 判断点是否在多边形的边界上
+            LitMath.Vector2 vZero = new LitMath.Vector2(0, 0);
+            LitMath.Vector2 v1;
+            LitMath.Vector2 v2;
+            for (int i = 0, j = count - 1; i < count; j = i++)
+            {
+                v1 = _pnts[j] - pnt;
+                v2 = _pnts[i] - pnt;
+                if (v1.Equals(vZero) || v2.Equals(vZero)) // 顶点
+                {
+                    return PointContainment.Boundary;
+                }
+
+                if (LitMath.Utils.IsEqual(
+                    LitMath.Vector2.AngleInRadian(v1, v2), LitMath.Utils.PI)) // 边界上
+                {
+                    return PointContainment.Boundary;
+                }
+            }
+
+            // 判断点是否在多边形内
+            for (int i = 0, j = count - 1; i < count; j = i++)
+            {
+                if (_pnts[i].y < pnt.y && _pnts[j].y >= pnt.y
+                || _pnts[j].y < pnt.y && _pnts[i].y >= pnt.y)
+                {
+                    if (_pnts[i].x + (pnt.y - _pnts[i].y) / (_pnts[j].y - _pnts[i].y) * (_pnts[j].x - _pnts[i].x) < pnt.x)
+                    {
+                        oddNodes = !oddNodes;
+                    }
+                }
+            }
+
+            return oddNodes ? PointContainment.Inside : PointContainment.Outside;
         }
     }
 
