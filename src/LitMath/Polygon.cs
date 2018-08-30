@@ -104,28 +104,35 @@ namespace LitMath
         /// 适用于任意多边形
         /// http://alienryderflex.com/polygon/
         /// </summary>
-        public PointContainment IsContainsPointEx(Vector2 pnt)
+        public PointContainment IsContainsPointEx(Vector2 pnt, double tol=1e-10)
         {
             int count = _pnts.Count;
             bool oddNodes = false;
 
             // 判断点是否在多边形的边界上
+            // https://www.lucidar.me/en/mathematics/check-if-a-point-belongs-on-a-line-segment/
             LitMath.Vector2 vZero = new LitMath.Vector2(0, 0);
-            LitMath.Vector2 v1;
-            LitMath.Vector2 v2;
+            LitMath.Vector2 AB;
+            LitMath.Vector2 AC;
+            double kabac = 0.0;
+            double kabab = 0.0;
             for (int i = 0, j = count - 1; i < count; j = i++)
             {
-                v1 = _pnts[j] - pnt;
-                v2 = _pnts[i] - pnt;
-                if (v1.Equals(vZero) || v2.Equals(vZero)) // 顶点
-                {
-                    return PointContainment.Boundary;
-                }
+                AB = _pnts[i] - _pnts[j];
+                AC = pnt - _pnts[j];
 
-                if (LitMath.Utils.IsEqual(
-                    LitMath.Vector2.AngleInRadian(v1, v2), LitMath.Utils.PI)) // 边界上
+                if (LitMath.Utils.IsEqualZero(
+                    LitMath.Vector2.Cross(AB, AC), tol))
                 {
-                    return PointContainment.Boundary;
+                    kabac = LitMath.Vector2.Dot(AB, AC);
+                    if (kabac >= 0 - tol)
+                    {
+                        kabab = LitMath.Vector2.Dot(AB, AB);
+                        if (kabac <= kabab + tol)
+                        {
+                            return PointContainment.Boundary;
+                        }
+                    }
                 }
             }
 
