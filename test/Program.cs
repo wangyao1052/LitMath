@@ -14,6 +14,36 @@ namespace Test
             //Console.WriteLine(Math.Asin(0.5).ToString());
 
             {
+                List<LitMath.Vector2> pnts = new List<LitMath.Vector2>();
+                pnts.Add(new LitMath.Vector2(0, 0));
+                pnts.Add(new LitMath.Vector2(0, 10));
+                pnts.Add(new LitMath.Vector2(10, 10));
+                pnts.Add(new LitMath.Vector2(10, 0));
+                
+                
+                LitMath.Polygon2 polygon = new LitMath.Polygon2(pnts);
+                LitMath.PointContainment pc = polygon.IsContainsPoint(new LitMath.Vector2(5, 5));
+                switch (pc)
+                {
+                    case LitMath.PointContainment.Inside:
+                        Console.WriteLine("Inside");
+                        break;
+
+                    case LitMath.PointContainment.Outside:
+                        Console.WriteLine("Outside");
+                        break;
+
+                    case LitMath.PointContainment.Boundary:
+                        Console.WriteLine("Boundary");
+                        break;
+                }
+
+                Console.ReadLine();
+            }
+
+            return;
+
+            {
                 LitMath.Vector3 va = new LitMath.Vector3(0, 0, 1);
                 LitMath.Vector3 vb = new LitMath.Vector3(0, 1, 0);
                 LitMath.Vector3 axis = new LitMath.Vector3(1, 1, 0);
@@ -34,7 +64,7 @@ namespace Test
                 double angle = LitMath.Vector3.SignedAngle(va, vb, axis);
                 Console.WriteLine(angle);
             }
-            
+
 
             return;
             //LitMath.Vector2 v1 = new LitMath.Vector2(1, 3);

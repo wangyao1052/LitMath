@@ -24,17 +24,35 @@ namespace LitMath
 
         /// <summary>
         /// 判断点是否在多边形内
+        /// 使用Winding Number(卷绕数)来判断
+        /// https://en.wikipedia.org/wiki/Winding_number
+        /// 适用于凸多边形
         /// </summary>
-        public bool IsPointIn(Vector2 pnt)
+        public PointContainment IsContainsPoint(Vector2 pnt)
         {
             int count = _pnts.Count;
             double angle = 0.0;
             for (int i = 0,j = count - 1; i < count; j = i++)
             {
-                angle += Vector2.SignedAngle(_pnts[j] - pnt, _pnts[i] - pnt);
+                angle += Vector2.SignedAngleInRadian(_pnts[j] - pnt, _pnts[i] - pnt);
+            }
+            if (angle < 0)
+            {
+                angle = -angle;
             }
 
-            return !Utils.IsEqualZero(angle, 1e-5);
+            if (Utils.IsEqualZero(angle, 1e-5))
+            {
+                return PointContainment.Outside;
+            }
+            else if (Utils.IsEqualZero(angle - Utils.PI*2, 1e-5))
+            {
+                return PointContainment.Inside;
+            }
+            else
+            {
+                return PointContainment.Boundary;
+            }
 
             #region
             //int crossing = 0;
@@ -80,5 +98,12 @@ namespace LitMath
             //return (crossing % 2 != 0);
             #endregion
         }
+    }
+
+    public enum PointContainment
+    {
+        Inside = 0,
+        Outside = 1,
+        Boundary = 2,
     }
 }
